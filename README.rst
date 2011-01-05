@@ -14,14 +14,34 @@ and ``djangoappengine`` bits together and set-up them for you.
 
 This buildout is supported only on UNIX based systems. 
 
+Prerequisitements
+=================
+
+You need to know basics of working with UNIX command line.
+
+You need to have installed
+
+* `Google App Engine SDK for Python <http://code.google.com/appengine/downloads.html#Download_the_Google_App_Engine_SDK>`_ 
+
+* git command
+
+* hg command (Mercurial tools)
+
+* Python, at least 2.5
+
+Your OS Python setuptools or Distribute package which is used to automatically download and install packages from PyPi repository,
+must be new enough version or you get funny error messages.
+
 Usage
 =====
 
-You must use App Engine compatible Python version (Python 2.5 and Python 2.6 should be fine)::
+Clone this project from Github according to Github instructions.
+
+Run bootstrap.py to generate ``bin/buildout`` command::
 
         python bootstrap.py 
 
-Then::
+Then make buildout to do the all the hard work of downloading and setting up configuration files for you::
         bin/buildout
 
 .. note::
@@ -38,7 +58,26 @@ Now you can run django-admin wrapper which is configured to used Python package 
 
         bin/django --version
 
-                1.2.4
+                1.3 alpha 1
+
+You also see that Google App Engine specific commands in the management::
+
+        bin/django --help
+
+                Usage: django subcommand [options] [args]
+
+                Options:
+                  -v VERBOSITY, --verbosity=VERBOSITY
+                                        Verbosity level; 0=minimal output, 1=normal output,
+
+                ...
+
+                Available subcommands:
+                  changepassword
+                  cleanup
+                  compilemessages
+                  ...
+                  remote
 
 The buildout ships with a sample project skeleton called ``my.sampleproject``. You can clone this
 skeleton and modify it to start building your won application.
@@ -46,5 +85,17 @@ skeleton and modify it to start building your won application.
 To deploy your own application you can create a ``buildout.cfg`` which extends this existing buildout.
 Edit ``buildout.cfg``.
 
+Notes
+=====
 
+Currently uses patched ``djangoappengine`` and ``djc.recipe`` packages. Patches pushed upstream / merge requests created.
+
+Further reading
+===============
+
+* http://www.allbuttonspressed.com/projects/djangoappengine
+
+* http://pypi.python.org/pypi/djc.recipe
+
+* http://pypi.python.org/pypi/mr.developer
 
