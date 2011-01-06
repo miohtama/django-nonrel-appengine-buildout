@@ -127,6 +127,21 @@ Start Google App Engine service with a sample database::
         Never run manage.py runserver together with other management commands at the same time. The changes won't take effect. 
         That's an App Engine SDK limitation which might get fixed in a later release.        
 
+Deploy
+======
+
+To deploy your application on Google App Engine you can use command::
+
+    bin/django deploy --nosyncdb
+    
+``--nosyncdb`` argument will tell deploy not to run Django syncdb command (creating initial models and stuff)
+against the production database. 
+  
+.. note ::
+
+    If you are using the sample application for testing you need at least change Google App Engine application id
+    in src/my.sampleproject/my/sampleproject/app.yaml.
+
 Extending
 =========
 
@@ -162,7 +177,25 @@ Author
 Troubleshooting
 ===============
 
-OSX
+google.appengine.api.datastore_errors.NeedIndexError: django_content_type
+--------------------------------------------------------------------------
+
+If you get this message when deploying::
+
+    google.appengine.api.datastore_errors.NeedIndexError: The index for this query is not ready to serve. See the Datastore Indexes page in the Admin Console.
+    This query needs this index:
+    - kind: django_content_type
+      properties:
+      - name: app_label
+      - name: name
+
+It means that syncdb has not succeeded. Google App Engine is still working to build indexes for your datastore entities.
+You can go to App Engine Dashboard and see that there should be label *Building* for this index. 
+
+* http://code.google.com/appengine/kb/general.html#indexes
+
+OSX and Distribute woes
+-----------------------
 
 * https://bitbucket.org/tarek/distribute/issue/66/setuptoolscommandeasy_install-doesnt-exist
 
