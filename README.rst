@@ -32,8 +32,8 @@ You need to have installed
 Your OS Python setuptools or Distribute package which is used to automatically download and install packages from PyPi repository,
 must be new enough version or you get funny error messages.
 
-Usage
-=====
+Installation
+=============
 
 Clone this project from Github according to Github instructions.
 
@@ -54,7 +54,7 @@ This step is *only needed if you have Google App Engine SDK in non-standard loca
 
         export PATH=~/google_appengine:$PATH
 
-Now you can run django-admin wrapper which is configured to used Python package setup as described in ``buildout.cfg``::
+>Now you can run django-admin wrapper which is configured to used Python package setup as described in ``buildout.cfg``::
 
         bin/django --version
 
@@ -82,8 +82,24 @@ You also see that Google App Engine specific commands in the management::
 The buildout ships with a sample project skeleton called ``my.sampleproject``. You can clone this
 skeleton and modify it to start building your won application.
 
+Usage 
+=====
+
+Start Google App Engine service with a sample database::
+
+        bin/django runserver
+
+.. note ::
+
+        Never run manage.py runserver together with other management commands at the same time. The changes won't take effect. 
+        That's an App Engine SDK limitation which might get fixed in a later release.        
+
+Extending
+=========
+
 To deploy your own application you can create a ``buildout.cfg`` which extends this existing buildout.
 Edit ``buildout.cfg``.
+
 
 Notes
 =====
