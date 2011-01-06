@@ -9,10 +9,41 @@ Introduction
 
 Easily install and manage django-nonrel based Google App Engine applications using buildout command.
 
-The buildout configuration uses Mr. Developer extension to pull all ``django-nonrel``
-and ``djangoappengine`` bits together and set-up them for you.
+The `buildout <http://www.buildout.org>`_ configuration uses Mr. Developer extension to pull all ``django-nonrel``
+and ``djangoappengine`` bits together and set-up them for you, so you can instantly start developing 
+Google App Engine applications.
 
 This buildout is supported only on UNIX based systems. 
+
+Buildout uses ``buildout.cfg`` configuration file to describe how to set up a Python software project 
+
+* Download required dependencies from `PyPi <http://pypi.python.org>`_ (Python egg packages)
+
+* Checkout and manage source code from version control systems - public and your private repositores
+
+* Create start up scripts and set environment variables
+
+Buildout benefits include
+
+* Repeatability: All project developers can start quickly (no more one day setting up dependencies)
+
+* Repeatability: Easily move your project between different folders, computers or servers
+
+* Standard: Part of advanced Python developer toolkit. Provides more reusability than ad hoc shell scripts.
+
+Buildout works around some Google App Engine deployment problems. 
+
+This buildout will check out a sample Google App Engine + django-nonrel application called ``my.sampleproject``.
+To work with your own project, just make your Django application available 
+
+Using ``django-nonrel`` over stock Google App Engine modules and templates provide additional benefits
+
+* Maintained versions: Google App Engine stock Python modules are **old**
+
+* Vendor independence: You can move your code to some other NoSQL or SQL database on one day 
+
+* Reuse: You can plug-in existing Django applications and modules easily. With buildout, it is just
+  including the package egg name in buildout.cfg file and the Django application will be downloaded for you automatically.
 
 Prerequisitements
 =================
@@ -97,14 +128,34 @@ Start Google App Engine service with a sample database::
 Extending
 =========
 
-To deploy your own application you can create a ``buildout.cfg`` which extends this existing buildout.
-Edit ``buildout.cfg``.
+Currently the suggested way to reuse is this buildout is just to make your own copy of it
+and put in your own project to 
+
+* eggs section - you need to package your Python source code as egg (see ``setup.py`` in ``my.sampleproject``)
+
+* Alternative you need to put source code eggs to ``develop-eggs`` in ``[buildout]`` section or use
+  ``[sources]`` section and `Mr. Developer <http://pypi.python.org/pypi/mr.developer>`_ to manage the checkout
+
+... or as a dummy alternative, replace ``my.samplerproject`` everywhere with your own package name.
 
 
 Notes
 =====
 
+When you run ``buildout`` its ``[flatten-eggs]`` recipe will create a flat, symlinked, directory
+structure of available eggs. This makes the code deployable on Google App Engine, 
+because App Engine does not support egg deployments. Later, this flattened folder is added
+to ``PYTHONPATH`` in ``bootstrap.py`` of ``my.sampleproject``, making eggs importable. 
+``flattened-eggs`` folder is  automatically cleared, so if you remove eggs, you do not need to purge the folder manually.
+
 Currently uses patched ``djangoappengine`` and ``djc.recipe`` packages. Patches pushed upstream / merge requests created.
+
+Author
+======
+
+* Contact mikko at mfabrik dot com
+
+* `Follow in Twitter <http://twitter.com/moo9000>`_
 
 Further reading
 ===============
