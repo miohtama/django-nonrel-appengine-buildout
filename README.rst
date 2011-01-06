@@ -60,8 +60,10 @@ You need to have installed
 
 * Python, at least 2.5
 
-Your OS Python setuptools or Distribute package which is used to automatically download and install packages from PyPi repository,
+Your OS Python setuptools or Distribute (setuptools replacement) package which is used to automatically download and install packages from PyPi repository,
 must be new enough version or you get funny error messages.
+
+To install Distribute, use your OS package or `follow instructions here <http://pypi.python.org/pypi/distribute#installation-instructions>`_.
 
 Installation
 =============
@@ -156,6 +158,13 @@ Author
 * Contact mikko at mfabrik dot com
 
 * `Follow in Twitter <http://twitter.com/moo9000>`_
+
+Troubleshooting
+===============
+
+OSX
+
+* https://bitbucket.org/tarek/distribute/issue/66/setuptoolscommandeasy_install-doesnt-exist
 
 Further reading
 ===============
